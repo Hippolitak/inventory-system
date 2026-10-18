@@ -1,0 +1,46 @@
+.main-content {
+    margin-left: 80px;
+    padding: 30px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover ~ .main-content {
+    margin-left: 260px;
+}
+
+#greeting {
+    margin-bottom: 25px;
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    width: 200px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.action-buttons {
+    margin: 30px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    background: var(--accent);
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.recent-items {
+    margin-top: 20px;
+}

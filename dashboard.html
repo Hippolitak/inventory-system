@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-logo">InventoryHub</div>
+
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html"><i class="icon">🏠</i><span>Dashboard</span></a></li>
+        <li><a href="items.html"><i class="icon">📦</i><span>Items</span></a></li>
+        <li><a href="#"><i class="icon">📊</i><span>Reports</span></a></li>
+        <li><a href="#"><i class="icon">🏭</i><span>Warehouse</span></a></li>
+        <li><a href="#"><i class="icon">🧾</i><span>Purchase Orders</span></a></li>
+        <li><a href="#"><i class="icon">⚙️</i><span>Settings</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <button id="themeToggle">🌙 Theme</button>
+        <a href="login.html" class="exit-btn">Exit</a>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- Greeting -->
+    <h1 id="greeting">Welcome back, User</h1>
+
+    <!-- Stat Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <h3>Total Items</h3>
+            <p id="totalItems">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Quantity</h3>
+            <p id="totalQuantity">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Inventory Value</h3>
+            <p id="inventoryValue">£0.00</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Low Stock</h3>
+            <p id="lowStock">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Out of Stock</h3>
+            <p id="outOfStock">0</p>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="add-item.html" class="action-btn">Add Item</a>
+        <a href="adjust-stock.html" class="action-btn">Add Stock</a>
+        <a href="adjust-stock.html" class="action-btn">Issue Stock</a>
+        <a href="adjust-stock.html" class="action-btn">Adjust Stock</a>
+    </div>
+
+    <!-- Recent -->
+    <h2>Recent Inventory</h2>
+    <div id="recentItems" class="recent-items"></div>
+
+</div>
+
+<!-- JS -->
+<script src="js/theme.js"></script>
+<script src="js/api.js" type="module"></script>
+<script src="js/dashboard.js" type="module"></script>
+
+</body>
+</html>
