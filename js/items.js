@@ -1,9 +1,12 @@
 // Help of AI assistance
-import { getProducts, deleteProduct } from "./api.js";
+import { getProducts, deleteProduct, createProduct } from "./api.js";
 
 const itemsContainer = document.getElementById("itemsContainer");
 
+// Load Items (Items Page)
 const loadItems = async () => {
+    if (!itemsContainer) return; // Only run on items.html
+
     const products = await getProducts();
     itemsContainer.innerHTML = "";
 
@@ -49,3 +52,60 @@ const loadItems = async () => {
 };
 
 loadItems();
+
+// Add Items (Add Item Page)
+const addItemForm = document.getElementById("addItemForm");
+
+if (addItemForm) {
+    addItemForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("itemName").value.trim();
+        const code = document.getElementById("itemCode").value.trim();
+        const category = document.getElementById("itemCategory").value;
+        const quantity = Number(document.getElementById("itemQuantity").value);
+        const price = Number(document.getElementById("itemPrice").value);
+
+        const imageFile = document.getElementById("itemImage").files[0];
+        let imageUrl = "";
+
+        // If user uploaded an image, convert it to Base64
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                imageUrl = reader.result;
+
+                const newItem = {
+                    name,
+                    code,
+                    category,
+                    quantity,
+                    price,
+                    status: quantity === 0 ? "out-of-stock" : quantity < 5 ? "low-stock" : "in-stock",
+                    imageUrl
+                };
+
+                await createProduct(newItem);
+                alert("Item added successfully");
+                window.location.href = "items.html";
+            };
+
+            reader.readAsDataURL(imageFile);
+        } else {
+            // No image uploaded then use static icon
+            const newItem = {
+                name,
+                code,
+                category,
+                quantity,
+                price,
+                status: quantity === 0 ? "out-of-stock" : quantity < 5 ? "low-stock" : "in-stock",
+                imageUrl: "" // fallback 
+            };
+
+            await createProduct(newItem);
+            alert("Item added successfully");
+            window.location.href = "items.html";
+        }
+    });
+}

@@ -56,3 +56,30 @@
     border-radius: 10px;
     text-decoration: none;
 }
+
+.item-form {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    width: 400px;
+    box-shadow: var(--shadow);
+}
+
+.item-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.item-form input,
+.item-form select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.item-form button {
+    margin-top: 20px;
+    width: 100%;
+}
