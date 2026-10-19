@@ -1,0 +1,22 @@
+/* --------------------------------------------------
+   Theme overrides will be added later
+   (Dark mode, hybrid mode, high contrast, etc.)
+-------------------------------------------------- */
+
+/* Example structure (not active yet):
+
+body.dark {
+    background: #1e1e1e;
+    color: #f5f5f5;
+}
+
+.sidebar.dark {
+    background: #2a2a2a;
+}
+
+.action-btn.dark {
+    background: #333;
+    color: #fff;
+}
+
+*/
