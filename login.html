@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Inventory System</title>
+    <title>Login</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/auth.css">
 </head>
 
 <body>
 
-<div class="auth-container">
+<div class="main-wrapper">
 
-    <!-- Left side (image / branding) -->
+    <!-- Left side (branding) -->
     <div class="auth-left">
         <h1>Inventory System</h1>
         <p>Manage your stock with ease.</p>
@@ -23,10 +23,13 @@
         <h2>Login</h2>
 
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <label for="username">Username</label>
+            <input type="text" id="username" required>
 
-            <button type="submit">Login</button>
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+
+            <button type="submit" class="action-btn">Login</button>
 
             <p class="auth-link">
                 Don't have an account? <a href="register.html">Register</a>
@@ -35,6 +38,7 @@
     </div>
 
 </div>
+
 
 <script src="js/api.js" type="module"></script>
 <script src="js/auth.js" type="module"></script>

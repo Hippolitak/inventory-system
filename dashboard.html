@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
@@ -18,16 +15,16 @@
     <div class="sidebar-logo">InventoryHub</div>
 
     <ul class="sidebar-menu">
-        <li><a href="dashboard.html"><i class="icon">🏠</i><span>Dashboard</span></a></li>
-        <li><a href="items.html"><i class="icon">📦</i><span>Items</span></a></li>
-        <li><a href="#"><i class="icon">📊</i><span>Reports</span></a></li>
-        <li><a href="#"><i class="icon">🏭</i><span>Warehouse</span></a></li>
-        <li><a href="#"><i class="icon">🧾</i><span>Purchase Orders</span></a></li>
-        <li><a href="#"><i class="icon">⚙️</i><span>Settings</span></a></li>
+        <li><a href="dashboard.html"><span>🏠 Dashboard</span></a></li>
+        <li><a href="items.html"><span>📦 Items</span></a></li>
+        <li><a href="#"><span>📊 Reports</span></a></li>
+        <li><a href="#"><span>🏭 Warehouse</span></a></li>
+        <li><a href="#"><span>🧾 Purchase Orders</span></a></li>
+        <li><a href="#"><span>⚙️ Settings</span></a></li>
     </ul>
 
     <div class="sidebar-footer">
-        <button id="themeToggle">🌙 Theme</button>
+        <button id="themeToggle" class="action-btn">Theme</button>
         <a href="login.html" class="exit-btn">Exit</a>
     </div>
 </div>
@@ -40,30 +37,32 @@
 
     <!-- Stat Cards -->
     <div class="stats-container">
-        <div class="stat-card">
+
+        <div class="stat-card item-card">
             <h3>Total Items</h3>
             <p id="totalItems">0</p>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card item-card">
             <h3>Total Quantity</h3>
             <p id="totalQuantity">0</p>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card item-card">
             <h3>Inventory Value</h3>
             <p id="inventoryValue">£0.00</p>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card item-card">
             <h3>Low Stock</h3>
             <p id="lowStock">0</p>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card item-card">
             <h3>Out of Stock</h3>
             <p id="outOfStock">0</p>
         </div>
+
     </div>
 
     <!-- Action Buttons -->
@@ -74,7 +73,7 @@
         <a href="adjust-stock.html" class="action-btn">Adjust Stock</a>
     </div>
 
-    <!-- Recent -->
+    <!-- Recent Items -->
     <h2>Recent Inventory</h2>
     <div id="recentItems" class="recent-items"></div>
 
