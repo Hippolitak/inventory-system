@@ -44,5 +44,3 @@ export const deleteProduct = async (id) => {
     await fetch(`${API_BASE}/products/${id}`, { method: "DELETE" });
 };
 
-import { getUsers, createUser } from "./api.js";
-

@@ -1,3 +1,5 @@
+import { getUsers, createUser } from "./api.js";
+
 // Login
 const loginForm = document.getElementById("loginForm");
 
