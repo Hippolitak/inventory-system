@@ -5,7 +5,7 @@ if (savedTheme === "dark") {
 }
 
 // Theme toggle
-export const toggleTheme = () => {
+const toggleTheme = () => {
     document.body.classList.toggle("dark-mode");
 
     const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";

@@ -8,21 +8,34 @@ if (addItemForm) {
 
         const name = document.getElementById("itemName").value.trim();
         const code = document.getElementById("itemCode").value.trim();
-        const category = document.getElementById("itemCategory").value.trim();
+        const category = document.getElementById("itemCategory").value;
         const quantity = Number(document.getElementById("itemQuantity").value);
         const price = Number(document.getElementById("itemPrice").value);
+
+        // Determine status from quantity
+        const status = quantity === 0
+            ? "out-of-stock"
+            : quantity < 5
+                ? "low-stock"
+                : "in-stock";
 
         const newItem = {
             name,
             code,
             category,
             quantity,
-            price
+            price,
+            status
         };
 
-        await createProduct(newItem);
+        try {
+            await createProduct(newItem);
 
-        alert("Item added successfully!");
-        window.location.href = "items.html";
+            alert("Item added successfully!");
+            window.location.href = "items.html";
+        } catch (error) {
+            console.error("Error adding item:", error);
+            alert("Unable to add item. Please try again.");
+        }
     });
 }

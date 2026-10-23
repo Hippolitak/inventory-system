@@ -1,4 +1,3 @@
-// Help from Ai Assistance 
 import { getProducts, updateProduct } from "./api.js";
 
 // Get ID from URL
@@ -9,67 +8,67 @@ const editForm = document.getElementById("editItemForm");
 
 // Load item data
 const loadItem = async () => {
-    const products = await getProducts();
-    const item = products.find(p => p.id === itemId);
+    try {
+        const products = await getProducts();
+        const item = products.find(p => String(p.id) === String(itemId));
 
-    if (!item) {
-        alert("Item not found");
-        window.location.href = "items.html";
-        return;
+        if (!item) {
+            alert("Item not found");
+            window.location.href = "items.html";
+            return;
+        }
+
+        // Fill form
+        document.getElementById("editName").value = item.name ?? "";
+        document.getElementById("editCode").value = item.code ?? "";
+        document.getElementById("editCategory").value = item.category ?? "box";
+        document.getElementById("editQuantity").value = item.quantity ?? 0;
+        document.getElementById("editPrice").value = item.price ?? 0;
+
+    } catch (error) {
+        console.error("Error loading item:", error);
+        alert("Unable to load item details.");
     }
-
-    // Fill form
-    document.getElementById("editName").value = item.name;
-    document.getElementById("editCode").value = item.code;
-    document.getElementById("editCategory").value = item.category;
-    document.getElementById("editQuantity").value = item.quantity;
-    document.getElementById("editPrice").value = item.price;
 };
 
-loadItem();
+if (editForm) {
+    loadItem();
 
-// Save changes
-editForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    // Save changes
+    editForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const name = document.getElementById("editName").value.trim();
-    const code = document.getElementById("editCode").value.trim();
-    const category = document.getElementById("editCategory").value;
-    const quantity = Number(document.getElementById("editQuantity").value);
-    const price = Number(document.getElementById("editPrice").value);
+        const name = document.getElementById("editName").value.trim();
+        const code = document.getElementById("editCode").value.trim();
+        const category = document.getElementById("editCategory").value;
+        const quantity = Number(document.getElementById("editQuantity").value);
+        const price = Number(document.getElementById("editPrice").value);
 
-    const imageFile = document.getElementById("editImage").files[0];
+        const status = quantity === 0
+            ? "out-of-stock"
+            : quantity < 5
+                ? "low-stock"
+                : "in-stock";
 
-    let updatedData = {
-        name,
-        code,
-        category,
-        quantity,
-        price,
-        status: quantity === 0 ? "out-of-stock" : quantity < 5 ? "low-stock" : "in-stock"
-    };
-
-    // If user uploaded a new image
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-            updatedData.imageUrl = reader.result;
-
-            await updateProduct(itemId, updatedData);
-            alert("Item updated successfully");
-            window.location.href = "items.html";
+        const updatedData = {
+            name,
+            code,
+            category,
+            quantity,
+            price,
+            status
         };
 
-        reader.readAsDataURL(imageFile);
-    } else {
-        // Keep existing image
-        const products = await getProducts();
-        const item = products.find(p => p.id === itemId);
+        try {
+            await updateProduct(itemId, updatedData);
 
-        updatedData.imageUrl = item.imageUrl;
+            alert("Item updated successfully!");
+            window.location.href = "items.html";
 
-        await updateProduct(itemId, updatedData);
-        alert("Item updated successfully");
-        window.location.href = "items.html";
-    }
-});
+        } catch (error) {
+            console.error("Error updating item:", error);
+            alert("Unable to update item. Please try again.");
+        }
+    });
+}
+

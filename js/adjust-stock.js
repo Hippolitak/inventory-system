@@ -25,7 +25,6 @@ adjustForm.addEventListener("submit", async (e) => {
     const itemId = itemSelect.value;
     const adjustType = document.getElementById("adjustType").value;
     const amount = Number(document.getElementById("adjustAmount").value);
-
     const products = await getProducts();
     const item = products.find(p => p.id === itemId);
 

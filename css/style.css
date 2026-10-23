@@ -177,3 +177,12 @@ h1, h2, h3, h4 {
     margin-bottom: 14px;
     font-size: 14px;
 }
+
+/* Item Images */
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+    margin: 0 0 15px 0;
+}
