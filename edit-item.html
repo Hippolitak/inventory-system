@@ -41,18 +41,16 @@
         <input type="text" id="editCode" required>
 
         <label for="editCategory">Category</label>
-        <select id="editCategory" required>
-            <option value="laptop">Laptop</option>
-            <option value="monitor">Monitor</option>
-            <option value="accessory">Accessory</option>
-            <option value="box">General Item</option>
-        </select>
+        <input type="text" id="editCategory" placeholder="e.g. Laptop, Shower, Window" required>
 
         <label for="editQuantity">Quantity</label>
         <input type="number" id="editQuantity" required>
 
         <label for="editPrice">Price (£)</label>
         <input type="number" id="editPrice" step="0.01" required>
+
+        <label for="editImage">Replace Image</label>
+        <input type="file" id="editImage" accept="image/*">
 
         <button type="submit" class="action-btn">Save Changes</button>
 
