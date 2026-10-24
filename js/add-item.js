@@ -23,6 +23,7 @@ if (addItemForm) {
 
         let imageUrl = "";
 
+        // Upload image to Cloudinary
         if (imageFile) {
             const formData = new FormData();
 
@@ -30,7 +31,7 @@ if (addItemForm) {
             formData.append("upload_preset", "inventory_uploads");
 
             try {
-                const cloudinaryResponse = await fetch(
+                const response = await fetch(
                     "https://api.cloudinary.com/v1_1/dhdege5im/image/upload",
                     {
                         method: "POST",
@@ -38,12 +39,12 @@ if (addItemForm) {
                     }
                 );
 
-                const cloudinaryData = await cloudinaryResponse.json();
+                const data = await response.json();
 
-                imageUrl = cloudinaryData.secure_url;
+                imageUrl = data.secure_url;
             } catch (error) {
-                console.error("Cloudinary Upload Error:", error);
-                alert("Image upload failed.");
+                console.error("Cloudinary upload failed:", error);
+                alert("Failed to upload image.");
                 return;
             }
         }
