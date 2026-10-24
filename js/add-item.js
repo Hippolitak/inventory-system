@@ -12,12 +12,41 @@ if (addItemForm) {
         const quantity = Number(document.getElementById("itemQuantity").value);
         const price = Number(document.getElementById("itemPrice").value);
 
-        // Determine status from quantity
-        const status = quantity === 0
-            ? "out-of-stock"
-            : quantity < 5
-                ? "low-stock"
-                : "in-stock";
+        const imageFile = document.getElementById("itemImage").files[0];
+
+        const status =
+            quantity === 0
+                ? "out-of-stock"
+                : quantity < 5
+                    ? "low-stock"
+                    : "in-stock";
+
+        let imageUrl = "";
+
+        if (imageFile) {
+            const formData = new FormData();
+
+            formData.append("file", imageFile);
+            formData.append("upload_preset", "inventory_uploads");
+
+            try {
+                const cloudinaryResponse = await fetch(
+                    "https://api.cloudinary.com/v1_1/dhdege5im/image/upload",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const cloudinaryData = await cloudinaryResponse.json();
+
+                imageUrl = cloudinaryData.secure_url;
+            } catch (error) {
+                console.error("Cloudinary Upload Error:", error);
+                alert("Image upload failed.");
+                return;
+            }
+        }
 
         const newItem = {
             name,
@@ -25,7 +54,8 @@ if (addItemForm) {
             category,
             quantity,
             price,
-            status
+            status,
+            imageUrl
         };
 
         try {
@@ -35,7 +65,7 @@ if (addItemForm) {
             window.location.href = "items.html";
         } catch (error) {
             console.error("Error adding item:", error);
-            alert("Unable to add item. Please try again.");
+            alert("Unable to add item.");
         }
     });
 }
