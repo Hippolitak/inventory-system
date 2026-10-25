@@ -14,8 +14,8 @@ const loadItems = async () => {
             const card = document.createElement("div");
             card.classList.add("item-card");
 
-            // Display the static category icon
-            const imageSrc = `assets/icons/${item.category || "default"}.png`;
+            // Display uploaded image, or use category icon as fallback
+            const imageSrc = item.imageUrl || `assets/icons/${item.category || "default"}.png`;
 
             card.innerHTML = `
                 <img
@@ -26,7 +26,7 @@ const loadItems = async () => {
 
                 <div class="item-info">
                     <h3>${item.name}</h3>
-                    <p>${item.code}</p>
+                    <p>Item Code: ${item.code}</p>
                     <p>Quantity: ${item.quantity}</p>
                     <p>Status: ${item.status ?? "Unknown"}</p>
                     <p>Price: £${item.price}</p>
