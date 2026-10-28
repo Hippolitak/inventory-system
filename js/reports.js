@@ -21,6 +21,11 @@ const loadReports = async () => {
         0
     );
 
+    const formattedInventoryValue = inventoryValue.toLocaleString("en-GB", {
+        style: "currency",
+        currency: "GBP"
+    });
+
     const lowStock = products.filter(
         item => item.quantity > 0 && item.quantity < 5
     );
@@ -42,7 +47,7 @@ const loadReports = async () => {
 
         <div class="card">
             <h3>Inventory Value</h3>
-            <p>£${inventoryValue.toFixed(2)}</p>
+            <p>${formattedInventoryValue}</p>
         </div>
 
         <div class="card">
@@ -74,7 +79,7 @@ const loadReports = async () => {
                         <td>${item.name}</td>
                         <td>${item.category}</td>
                         <td>${item.quantity}</td>
-                        <td>£${item.price}</td>
+                        <td>£${Number(item.price).toFixed(2)}</td>
                         <td>£${(item.quantity * item.price).toFixed(2)}</td>
                     </tr>
                 `).join("")}
