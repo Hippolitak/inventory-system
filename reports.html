@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">InventoryHub</div>
+
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html"><span>🏠 Dashboard</span></a></li>
+        <li><a href="items.html"><span>📦 Items</span></a></li>
+        <li><a href="reports.html"><span>📊 Reports</span></a></li>
+        <li><a href="#"><span>⚙️ Settings</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <button id="themeToggle" class="action-btn">Theme</button>
+        <a href="login.html" class="exit-btn">Logout</a>
+    </div>
+</div>
+
+<div class="main-content">
+
+    <h1>Inventory Reports</h1>
+
+    <div id="reportCards" class="dashboard-cards"></div>
+
+    <h2>Inventory Report</h2>
+    <div id="inventoryTable"></div>
+
+    <h2>Low Stock Items</h2>
+    <div id="lowStockItems"></div>
+
+    <h2>Out of Stock Items</h2>
+    <div id="outOfStockItems"></div>
+
+</div>
+
+<script src="js/reports.js" type="module"></script>
+<script src="js/theme.js"></script>
+
+</body>
+</html>
