@@ -11,13 +11,18 @@
 <body>
 
 <div class="sidebar">
+    <div class="sidebar">
+    <button id="sidebarToggle" class="sidebar-toggle">
+        ☰
+    </button>
+
     <div class="sidebar-logo">InventoryHub</div>
 
     <ul class="sidebar-menu">
         <li><a href="dashboard.html"><span>🏠 Dashboard</span></a></li>
         <li><a href="items.html"><span>📦 Items</span></a></li>
         <li><a href="reports.html"><span>📊 Reports</span></a></li>
-        <li><a href="#"><span>⚙️ Settings</span></a></li>
+        <li><a href="settings.html"><span>⚙️ Settings</span></a></li>
     </ul>
 
     <div class="sidebar-footer">
@@ -34,6 +39,10 @@
     >
     <h1>Inventory Reports</h1>
 
+    <button id="printReportBtn" class="action-btn">
+        Print Report
+    </button>
+
     <div id="reportCards" class="dashboard-cards"></div>
 
     <h2>Inventory Report</h2>
@@ -49,6 +58,7 @@
 
 <script src="js/reports.js" type="module"></script>
 <script src="js/theme.js"></script>
+<script src="js/sidebar.js"></script>
 
 </body>
 </html>
