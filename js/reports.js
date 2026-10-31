@@ -4,10 +4,22 @@ const reportCards = document.getElementById("reportCards");
 const inventoryTable = document.getElementById("inventoryTable");
 const lowStockItems = document.getElementById("lowStockItems");
 const outOfStockItems = document.getElementById("outOfStockItems");
+const reportSearch = document.getElementById("reportSearch");
 
 const loadReports = async () => {
 
-    const products = await getProducts();
+    let products = await getProducts();
+
+    if (reportSearch && reportSearch.value.trim() !== "") {
+
+    const searchTerm = reportSearch.value.toLowerCase();
+
+    products = products.filter(item =>
+        item.name.toLowerCase().includes(searchTerm) ||
+        item.category.toLowerCase().includes(searchTerm) ||
+        String(item.code).toLowerCase().includes(searchTerm)
+    );
+}
 
     const totalProducts = products.length;
 
@@ -33,6 +45,11 @@ const loadReports = async () => {
     const outOfStock = products.filter(
         item => item.quantity === 0
     );
+
+    const printReportBtn = document.getElementById("printReportBtn");
+    printReportBtn?.addEventListener("click", () => {
+        window.print();
+    });
 
     reportCards.innerHTML = `
         <div class="card">
@@ -101,3 +118,4 @@ const loadReports = async () => {
 };
 
 loadReports();
+reportSearch?.addEventListener("input", loadReports);
