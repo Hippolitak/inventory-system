@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <button id="sidebarToggle" class="sidebar-toggle">
+        ☰
+    </button>
+    <div class="sidebar-logo">InventoryHub</div>
+
+    <ul class="sidebar-menu">
+        <li><a href="dashboard.html"><span>🏠 Dashboard</span></a></li>
+        <li><a href="items.html"><span>📦 Items</span></a></li>
+        <li><a href="reports.html"><span>📊 Reports</span></a></li>
+        <li><a href="settings.html"><span>⚙️ Settings</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <button id="themeToggle" class="action-btn">Theme</button>
+        <a href="login.html" class="exit-btn">Logout</a>
+    </div>
+</div>
+
+<div class="main-content">
+
+    <h1>Settings</h1>
+
+    <div class="form-section">
+
+        <h2>Account Settings</h2>
+
+        <p>
+            Current Username:
+            <strong id="currentUsername">Loading...</strong>
+        </p>
+
+        <label for="newUsername">New Username</label>
+        <input type="text" id="newUsername">
+
+        <button id="updateUsernameBtn" class="action-btn">
+            Update Username
+        </button>
+
+        <hr>
+
+        <h2>Change Password</h2>
+
+        <label for="currentPassword">Current Password</label>
+        <input type="password" id="currentPassword">
+
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword">
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword">
+
+        <button id="updatePasswordBtn" class="action-btn">
+            Update Password
+        </button>
+
+        <hr>
+
+        <h2>System Information</h2>
+
+        <p><strong>Version:</strong> 1.0</p>
+        <p><strong>Database:</strong> MockAPI</p>
+        <p><strong>Image Storage:</strong> Cloudinary</p>
+
+    </div>
+
+<script src="js/settings.js" type="module"></script>
+<script src="js/sidebar.js"></script>
+
+</div>

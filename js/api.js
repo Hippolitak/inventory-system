@@ -16,6 +16,16 @@ export const createUser = async (userData) => {
     return res.json();
 };
 
+export const updateUser = async (id, userData) => {
+    const res = await fetch(`${API_BASE}/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+    });
+
+    return res.json();
+};
+
 // Products
 export const getProducts = async () => {
     const res = await fetch(`${API_BASE}/products`);
