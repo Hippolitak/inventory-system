@@ -1,22 +1,43 @@
-/* --------------------------------------------------
-   Theme overrides will be added later
-   (Dark mode, hybrid mode, high contrast, etc.)
--------------------------------------------------- */
+/* Dark Mode */
 
-/* Example structure (not active yet):
-
-body.dark {
+body.dark-mode {
     background: #1e1e1e;
     color: #f5f5f5;
 }
 
-.sidebar.dark {
+body.dark-mode .sidebar {
     background: #2a2a2a;
+    border-right: 1px solid #444;
 }
 
-.action-btn.dark {
-    background: #333;
+body.dark-mode .item-card,
+body.dark-mode .form-section,
+body.dark-mode .card,
+body.dark-mode .report-table {
+    background: #2f2f2f;
+    color: #f5f5f5;
+}
+
+body.dark-mode .sidebar a {
+    color: #f5f5f5;
+}
+
+body.dark-mode .sidebar a:hover {
+    background: #3a3a3a;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #3a3a3a;
     color: #fff;
+    border: 1px solid #555;
 }
 
-*/
+body.dark-mode .report-table th {
+    background: #3a3a3a;
+}
+
+body.dark-mode .report-table td {
+    border-color: #555;
+}
