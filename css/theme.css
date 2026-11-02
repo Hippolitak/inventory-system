@@ -1,43 +1,92 @@
-/* Dark Mode */
+/* theme.css */
 
+/* Light theme (default) */
+:root {
+    color-scheme: light;
+
+    --bg: #f3f6fc;
+    --surface: #ffffff;
+    --surface-secondary: #eaf0fa;
+    --surface-hover: #e4ebf8;
+
+    --text: #1e293b;
+    --text-muted: #64748b;
+
+    --border: #d8e1ef;
+
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-soft: #e0e7ff;
+
+    --accent: #0d9488;
+    --accent-hover: #0f766e;
+    --accent-soft: #ccfbf1;
+
+    --success: #15803d;
+    --success-soft: #dcfce7;
+
+    --warning: #b45309;
+    --warning-soft: #fef3c7;
+
+    --danger: #b91c1c;
+    --danger-soft: #fee2e2;
+
+    --shadow: 0 8px 24px rgba(30, 41, 59, 0.07);
+    --shadow-hover: 0 12px 30px rgba(30, 41, 59, 0.12);
+
+    --input-bg: #ffffff;
+    --focus-ring: rgba(79, 70, 229, 0.25);
+}
+
+/* Dark theme */
 body.dark-mode {
-    background: #1e1e1e;
-    color: #f5f5f5;
+    color-scheme: dark;
+
+    --bg: #0f172a;
+    --surface: #172338;
+    --surface-secondary: #1e2d45;
+    --surface-hover: #263752;
+
+    --text: #e2e8f0;
+    --text-muted: #a0aec0;
+
+    --border: #33445e;
+
+    --primary: #818cf8;
+    --primary-hover: #a5b4fc;
+    --primary-soft: #312e81;
+
+    --accent: #2dd4bf;
+    --accent-hover: #5eead4;
+    --accent-soft: #134e4a;
+
+    --success: #4ade80;
+    --success-soft: #14532d;
+
+    --warning: #fbbf24;
+    --warning-soft: #78350f;
+
+    --danger: #f87171;
+    --danger-soft: #7f1d1d;
+
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.3);
+
+    --input-bg: #111c2e;
+    --focus-ring: rgba(129, 140, 248, 0.3);
 }
 
-body.dark-mode .sidebar {
-    background: #2a2a2a;
-    border-right: 1px solid #444;
-}
-
-body.dark-mode .item-card,
-body.dark-mode .form-section,
-body.dark-mode .card,
-body.dark-mode .report-table {
-    background: #2f2f2f;
-    color: #f5f5f5;
-}
-
-body.dark-mode .sidebar a {
-    color: #f5f5f5;
-}
-
-body.dark-mode .sidebar a:hover {
-    background: #3a3a3a;
-}
-
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-    background: #3a3a3a;
-    color: #fff;
-    border: 1px solid #555;
-}
-
-body.dark-mode .report-table th {
-    background: #3a3a3a;
-}
-
-body.dark-mode .report-table td {
-    border-color: #555;
+/* Smooth theme transitions */
+body,
+.sidebar,
+.item-card,
+.form-section,
+.card,
+.report-table,
+.auth-right {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
