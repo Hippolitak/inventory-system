@@ -1,3 +1,4 @@
+// AI-assisted implementation used to provide a collapsible navigation sidebar and dynamic content 
 const sidebar = document.querySelector(".sidebar");
 const mainContent = document.querySelector(".main-content");
 const toggleBtn = document.getElementById("sidebarToggle");

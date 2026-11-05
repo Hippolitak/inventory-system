@@ -2,7 +2,7 @@ import { getProducts, deleteProduct } from "./api.js";
 
 const itemsContainer = document.getElementById("itemsContainer");
 
-// Load Items
+// Retrieve inventory records from MockAPI
 const loadItems = async () => {
     if (!itemsContainer) return;
 
@@ -14,7 +14,7 @@ const loadItems = async () => {
             const card = document.createElement("div");
             card.classList.add("item-card");
 
-            // Display uploaded image, or use category icon as fallback
+            // AI-assisted image handling logic
             const imageSrc = item.imageUrl || `assets/icons/${item.category || "default"}.png`;
 
             card.innerHTML = `
@@ -41,7 +41,7 @@ const loadItems = async () => {
             itemsContainer.appendChild(card);
         });
 
-        // Delete buttons
+        // AI-assisted event handling used to support item deletion 
         itemsContainer.querySelectorAll(".delete-btn").forEach(btn => {
             btn.addEventListener("click", async (e) => {
                 e.preventDefault();

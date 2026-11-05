@@ -6,10 +6,12 @@ const lowStockItems = document.getElementById("lowStockItems");
 const outOfStockItems = document.getElementById("outOfStockItems");
 const reportSearch = document.getElementById("reportSearch");
 
+// AI-assisted reporting workflow which retrieves inventory data
 const loadReports = async () => {
 
     let products = await getProducts();
 
+    // AI-assisted search feature which filters inventory records
     if (reportSearch && reportSearch.value.trim() !== "") {
 
     const searchTerm = reportSearch.value.toLowerCase();
@@ -22,7 +24,7 @@ const loadReports = async () => {
 }
 
     const totalProducts = products.length;
-
+    // AI-assisted aggregation using reduce() to calculate the total quantity of inventory items
     const totalQuantity = products.reduce(
         (sum, item) => sum + item.quantity,
         0

@@ -4,7 +4,7 @@ import { getProducts, updateProduct } from "./api.js";
 const itemSelect = document.getElementById("stockItemSelect");
 const adjustForm = document.getElementById("adjustStockForm");
 
-// Load items into dropdown
+// AI-assisted implementation used for stock adjustment from MockAPI records
 const loadItems = async () => {
     const products = await getProducts();
 
@@ -34,7 +34,7 @@ adjustForm.addEventListener("submit", async (e) => {
     }
 
     let newQuantity = item.quantity;
-
+// AI assistance for stock adjustment logic used to increase or decrease inventory quantities
     if (adjustType === "increase") {
         newQuantity += amount;
     } else {
@@ -42,12 +42,13 @@ adjustForm.addEventListener("submit", async (e) => {
         if (newQuantity < 0) newQuantity = 0;
     }
 
-    // Auto-update status
+// AI-assisted status calculation based on updated stock levels
+// Automatically assigns in-stock, low-stock or out-of-stock
     const newStatus =
         newQuantity === 0 ? "out-of-stock" :
         newQuantity < 5 ? "low-stock" :
         "in-stock";
-
+// Creates new updated product object before changes with the MockAPI
     const updatedItem = {
         ...item,
         quantity: newQuantity,

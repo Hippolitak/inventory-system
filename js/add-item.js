@@ -14,6 +14,8 @@ if (addItemForm) {
 
         const imageFile = document.getElementById("itemImage").files[0];
 
+// Stock status is automatically calculated based on quantity levels
+// Logic was refined with AI assistance in order to improve the stock classification
         const status =
             quantity === 0
                 ? "out-of-stock"
@@ -23,8 +25,10 @@ if (addItemForm) {
 
         let imageUrl = "";
 
-        // Upload image to Cloudinary
+// Cloudinary image upload integration developed with AI assistance
+// Images are uploaded externally and the returned secure URL is stored
         if (imageFile) {
+            // FormData is used to package image files for Cloudinary API upload
             const formData = new FormData();
 
             formData.append("file", imageFile);
@@ -48,7 +52,7 @@ if (addItemForm) {
                 return;
             }
         }
-
+        // Creates the product object which gets saved to MockAPI
         const newItem = {
             name,
             code,
@@ -60,6 +64,7 @@ if (addItemForm) {
         };
 
         try {
+            // Product data is posted to MockAPI after successful validation and image process
             await createProduct(newItem);
 
             alert("Item added successfully!");

@@ -14,18 +14,18 @@ const toggleTheme = () => {
         document.body.classList.contains("dark-mode")
             ? "dark"
             : "light";
-
+    // Stores the selected theme preference for future visits.
     localStorage.setItem("theme", mode);
 };
 
-// Connect button
+// Theme toggle button
 const themeBtn = document.getElementById("themeToggle");
 
 if (themeBtn) {
     themeBtn.addEventListener("click", toggleTheme);
 }
 
-// Logout confirmation
+// Logout workflow
 document.addEventListener("DOMContentLoaded", () => {
 
     const exitBtn = document.querySelector(".exit-btn");

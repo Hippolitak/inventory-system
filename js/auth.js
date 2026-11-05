@@ -10,6 +10,7 @@ if (loginForm) {
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
 
+// AI-assisted authentication logic used to validate credentials against stored MockAPI user records
         const users = await getUsers();
         const user = users.find(u => u.username === username && u.password === password);
 

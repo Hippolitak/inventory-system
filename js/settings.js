@@ -35,6 +35,7 @@ updateUsernameBtn?.addEventListener("click", async () => {
         username: newUsername
     });
 
+    // Updates the active user session
     sessionStorage.setItem(
         "loggedInUser",
         newUsername
@@ -46,6 +47,7 @@ updateUsernameBtn?.addEventListener("click", async () => {
     alert("Username updated successfully.");
 });
 
+// AI-assisted password management
 const updatePasswordBtn =
     document.getElementById("updatePasswordBtn");
 
@@ -86,7 +88,7 @@ updatePasswordBtn?.addEventListener("click", async () => {
         alert("Please enter a new password.");
         return;
     }
-
+    // Updates the account password in MockAPI
     await updateUser(currentUser.id, {
         ...currentUser,
         password: newPassword

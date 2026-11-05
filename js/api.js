@@ -1,7 +1,7 @@
-// MockAPI base URL
+// MockAPI intergration 
 const API_BASE = "https://6ad4df9e48476c0785d94f71.mockapi.io";
 
-// Users
+// User account operations 
 export const getUsers = async () => {
     const res = await fetch(`${API_BASE}/users`);
     return res.json();
@@ -26,7 +26,7 @@ export const updateUser = async (id, userData) => {
     return res.json();
 };
 
-// Products
+// Product CRUD operations used throughout the inventory system 
 export const getProducts = async () => {
     const res = await fetch(`${API_BASE}/products`);
     return res.json();

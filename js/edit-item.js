@@ -27,7 +27,7 @@ const loadItem = async () => {
         document.getElementById("editQuantity").value = item.quantity ?? 0;
         document.getElementById("editPrice").value = item.price ?? 0;
 
-        // Keep existing image
+        // Keep existing image unless it is replaced
         existingImageUrl = item.imageUrl ?? "";
 
         const imagePreview = document.getElementById("editImagePreview");
@@ -66,8 +66,9 @@ if (editForm) {
 
         let imageUrl = existingImageUrl;
 
-        // Upload replacement image if selected
+        // Cloudinary replacement image upload
         if (imageFile) {
+            // FormData packages the selected image file before transmission to the Cloudinary 
             const formData = new FormData();
 
             formData.append("file", imageFile);
@@ -83,7 +84,7 @@ if (editForm) {
                 );
 
                 const data = await response.json();
-
+                // Validates the Cloudinary API response to ensure a secure image URL has been generated successfully
                 if (!response.ok || !data.secure_url) {
                     throw new Error(data.error?.message || "Image upload failed");
                 }
