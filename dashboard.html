@@ -38,44 +38,67 @@
     <h1 id="greeting">Welcome back, User</h1>
 
     <!-- Stat Cards -->
-    <div class="stats-container">
+    <div class="dashboard-layout">
 
-        <div class="stat-card item-card">
-            <h3>Total Items</h3>
-            <p id="totalItems">0</p>
+    <div class="dashboard-left">
+
+        <div class="stats-container">
+
+            <div class="stat-card item-card">
+                <h3>Total Items</h3>
+                <p id="totalItems">0</p>
+            </div>
+
+            <div class="stat-card item-card">
+                <h3>Total Quantity</h3>
+                <p id="totalQuantity">0</p>
+            </div>
+
+            <div class="stat-card item-card">
+                <h3>Inventory Value</h3>
+                <p id="inventoryValue">£0.00</p>
+            </div>
+
+            <div class="stat-card item-card">
+                <h3>Low Stock</h3>
+                <p id="lowStock">0</p>
+            </div>
+
+            <div class="stat-card item-card">
+                <h3>Out of Stock</h3>
+                <p id="outOfStock">0</p>
+            </div>
+
+    </div>
+
         </div>
 
-        <div class="stat-card item-card">
-            <h3>Total Quantity</h3>
-            <p id="totalQuantity">0</p>
-        </div>
+        <div class="item-card quick-actions">
 
-        <div class="stat-card item-card">
-            <h3>Inventory Value</h3>
-            <p id="inventoryValue">£0.00</p>
-        </div>
+            <h2>Quick Actions</h2>
 
-        <div class="stat-card item-card">
-            <h3>Low Stock</h3>
-            <p id="lowStock">0</p>
-        </div>
+            <div class="action-buttons">
+                <a href="add-item.html" class="action-btn">➕ Add Item</a>
+                <a href="adjust-stock.html" class="action-btn">📦 Adjust Stock</a>
+            </div>
 
-        <div class="stat-card item-card">
-            <h3>Out of Stock</h3>
-            <p id="outOfStock">0</p>
         </div>
 
     </div>
 
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-        <a href="add-item.html" class="action-btn">Add Item</a>
-        <a href="adjust-stock.html" class="action-btn">Adjust Stock</a>
+    <div class="dashboard-right">
+
+        <div class="item-card">
+
+            <h2>Recent Inventory</h2>
+
+            <div id="recentItems" class="recent-items"></div>
+
+        </div>
+
     </div>
 
-    <!-- Recent Items -->
-    <h2>Recent Inventory</h2>
-    <div id="recentItems" class="recent-items"></div>
+</div>
 
 </div>
 
@@ -86,3 +109,4 @@
 
 </body>
 </html>
+

@@ -361,6 +361,19 @@ textarea {
     font-weight: 750;
 }
 
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
 /* Stock status badges */
 .status-badge {
     display: inline-flex;
