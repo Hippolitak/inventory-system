@@ -11,7 +11,13 @@ let existingImageUrl = "";
 // Load item data
 const loadItem = async () => {
     try {
-        const products = await getProducts();
+        const currentUser =
+            sessionStorage.getItem("loggedInUser");
+
+        // Users can only edit inventory records that belong to their own account
+        const products = (await getProducts()).filter(
+            product => product.owner === currentUser
+        );
         const item = products.find(p => String(p.id) === String(itemId));
 
         if (!item) {

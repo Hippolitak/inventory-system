@@ -9,7 +9,13 @@ const reportSearch = document.getElementById("reportSearch");
 // AI-assisted reporting workflow which retrieves inventory data
 const loadReports = async () => {
 
-    let products = await getProducts();
+    const currentUser =
+        sessionStorage.getItem("loggedInUser");
+
+    // Generates reports only for intended user
+    let products = (await getProducts()).filter(
+        product => product.owner === currentUser
+    );
 
     // AI-assisted search feature which filters inventory records
     if (reportSearch && reportSearch.value.trim() !== "") {

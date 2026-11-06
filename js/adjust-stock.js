@@ -6,7 +6,13 @@ const adjustForm = document.getElementById("adjustStockForm");
 
 // AI-assisted implementation used for stock adjustment from MockAPI records
 const loadItems = async () => {
-    const products = await getProducts();
+    const currentUser =
+        sessionStorage.getItem("loggedInUser");
+
+    // Limits stock adjustment operations to products owned by the currently authenticated user
+    const products = (await getProducts()).filter(
+        product => product.owner === currentUser
+    );
 
     products.forEach(item => {
         const option = document.createElement("option");

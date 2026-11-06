@@ -1,4 +1,4 @@
-import { getUsers, updateUser } from "./api.js";
+import { getUsers, updateUser, deleteUser, getProducts, deleteProduct } from "./api.js";
 
 const currentUsername =
     sessionStorage.getItem("loggedInUser");
@@ -99,4 +99,42 @@ updatePasswordBtn?.addEventListener("click", async () => {
     document.getElementById("currentPassword").value = "";
     document.getElementById("newPassword").value = "";
     document.getElementById("confirmPassword").value = "";
+});
+
+const deleteAccountBtn =
+    document.getElementById("deleteAccountBtn");
+
+    // Delete Account
+deleteAccountBtn?.addEventListener("click", async () => {
+    // Additional validation 
+    const confirmDelete = prompt(
+        "Type DELETE MY ACCOUNT to permanently remove your account and inventory."
+    );
+
+    if (confirmDelete !== "DELETE MY ACCOUNT") {
+        alert("Account deletion cancelled.");
+        return;
+    }
+
+    const users = await getUsers();
+
+    const currentUser = users.find(
+        user =>
+            user.username ===
+            sessionStorage.getItem("loggedInUser")
+    );
+    
+
+    if (!currentUser) {
+        alert("User not found.");
+        return;
+    }
+
+    await deleteUser(currentUser.id);
+
+    sessionStorage.removeItem("loggedInUser");
+
+    alert("Account deleted successfully.");
+
+    window.location.href = "login.html";
 });

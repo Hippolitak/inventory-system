@@ -60,7 +60,9 @@ if (addItemForm) {
             quantity,
             price,
             status,
-            imageUrl
+            imageUrl,
+            owner: sessionStorage.getItem("loggedInUser") 
+            // Associates newly created inventory records for current new user
         };
 
         try {

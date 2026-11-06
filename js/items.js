@@ -7,7 +7,13 @@ const loadItems = async () => {
     if (!itemsContainer) return;
 
     try {
-        const products = await getProducts();
+        const currentUser =
+            sessionStorage.getItem("loggedInUser");
+
+        // Restricts inventory visibility only for intended user
+        const products = (await getProducts()).filter(
+            product => product.owner === currentUser
+        );
         itemsContainer.innerHTML = "";
 
         products.forEach(item => {

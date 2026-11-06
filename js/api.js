@@ -26,6 +26,13 @@ export const updateUser = async (id, userData) => {
     return res.json();
 };
 
+export const deleteUser = async (id) => {
+    await fetch(`${API_BASE}/users/${id}`, {
+        method: "DELETE"
+    });
+};
+
+
 // Product CRUD operations used throughout the inventory system 
 export const getProducts = async () => {
     const res = await fetch(`${API_BASE}/products`);

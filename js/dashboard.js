@@ -7,7 +7,13 @@ document.getElementById("greeting").textContent = `Welcome back, ${username}`;
 
 // Load products
 const loadDashboard = async () => {
-    const products = await getProducts();
+    const currentUser =
+        sessionStorage.getItem("loggedInUser");
+
+    // Filters inventory records as dashboard statistics display data belonging to the logged-in user
+    const products = (await getProducts()).filter(
+        product => product.owner === currentUser
+    );
 
     // Stats
     document.getElementById("totalItems").textContent = products.length;
