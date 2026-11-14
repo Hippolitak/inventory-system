@@ -11,14 +11,18 @@ let existingImageUrl = "";
 // Load item data
 const loadItem = async () => {
     try {
-        const currentUser =
-            sessionStorage.getItem("loggedInUser");
-
-        // Users can only edit inventory records that belong to their own account
-        const products = (await getProducts()).filter(
-            product => product.owner === currentUser
+        const currentUserId = Number(
+            sessionStorage.getItem("loggedInUserId")
         );
-        const item = products.find(p => String(p.id) === String(itemId));
+
+        // Find products belonging to the logged-in user
+        const products = (await getProducts()).filter(
+            product => product.UserID === currentUserId
+        );
+
+        const item = products.find(
+            p => String(p.ProductID) === String(itemId)
+        );
 
         if (!item) {
             alert("Item not found");
@@ -26,15 +30,15 @@ const loadItem = async () => {
             return;
         }
 
-        // Fill form
-        document.getElementById("editName").value = item.name ?? "";
-        document.getElementById("editCode").value = item.code ?? "";
-        document.getElementById("editCategory").value = item.category ?? "";
-        document.getElementById("editQuantity").value = item.quantity ?? 0;
-        document.getElementById("editPrice").value = item.price ?? 0;
+        // Fill form using SQL Server column names
+        document.getElementById("editName").value = item.Name ?? "";
+        document.getElementById("editCode").value = item.Code ?? "";
+        document.getElementById("editCategory").value = item.Category ?? "";
+        document.getElementById("editQuantity").value = item.Quantity ?? 0;
+        document.getElementById("editPrice").value = item.Price ?? 0;
 
         // Keep existing image unless it is replaced
-        existingImageUrl = item.imageUrl ?? "";
+        existingImageUrl = item.ImageUrl ?? "";
 
         const imagePreview = document.getElementById("editImagePreview");
 
@@ -105,13 +109,13 @@ if (editForm) {
         }
 
         const updatedData = {
-            name,
-            code,
-            category,
-            quantity,
-            price,
-            status,
-            imageUrl
+            Name: name,
+            Code: code,
+            Category: category,
+            Quantity: quantity,
+            Price: price,
+            Status: status,
+            ImageUrl: imageUrl
         };
 
         try {

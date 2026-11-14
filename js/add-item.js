@@ -52,21 +52,20 @@ if (addItemForm) {
                 return;
             }
         }
-        // Creates the product object which gets saved to MockAPI
+        // Creates the product object which gets saved to SSMS
         const newItem = {
-            name,
-            code,
-            category,
-            quantity,
-            price,
-            status,
-            imageUrl,
-            owner: sessionStorage.getItem("loggedInUser") 
-            // Associates newly created inventory records for current new user
+            UserID: Number(sessionStorage.getItem("loggedInUserId")),
+            Name: name,
+            Code: code,
+            Category: category,
+            Quantity: quantity,
+            Price: price,
+            Status: status,
+            ImageUrl: imageUrl
         };
 
         try {
-            // Product data is posted to MockAPI after successful validation and image process
+            // Product data is posted to SMSS after successful validation and image process
             await createProduct(newItem);
 
             alert("Item added successfully!");

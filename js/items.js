@@ -2,7 +2,7 @@ import { getProducts, deleteProduct } from "./api.js";
 
 const itemsContainer = document.getElementById("itemsContainer");
 
-// Retrieve inventory records from MockAPI
+// Retrieve inventory records 
 const loadItems = async () => {
     if (!itemsContainer) return;
 
@@ -11,8 +11,12 @@ const loadItems = async () => {
             sessionStorage.getItem("loggedInUser");
 
         // Restricts inventory visibility only for intended user
+        const currentUserId = Number(
+            sessionStorage.getItem("loggedInUserId")
+        );
+
         const products = (await getProducts()).filter(
-            product => product.owner === currentUser
+            product => product.UserID === currentUserId
         );
         itemsContainer.innerHTML = "";
 
@@ -21,26 +25,26 @@ const loadItems = async () => {
             card.classList.add("item-card");
 
             // AI-assisted image handling logic
-            const imageSrc = item.imageUrl || `assets/icons/${item.category || "default"}.png`;
+            const imageSrc = item.ImageUrl || `assets/icons/${item.Category || "default"}.png`;
 
             card.innerHTML = `
                 <img
                     src="${imageSrc}"
                     class="item-image"
-                    alt="${item.category || "default"} icon"
+                    alt="${item.Category || "default"} icon"
                 >
 
                 <div class="item-info">
-                    <h3>${item.name}</h3>
-                    <p>Item Code: ${item.code}</p>
-                    <p>Quantity: ${item.quantity}</p>
-                    <p>Status: ${item.status ?? "Unknown"}</p>
-                    <p>Price: £${item.price}</p>
+                    <h3>${item.Name}</h3>
+                    <p>Item Code: ${item.Code}</p>
+                    <p>Quantity: ${item.Quantity}</p>
+                    <p>Status: ${item.Status ?? "Unknown"}</p>
+                    <p>Price: £${item.Price}</p>
                 </div>
 
                 <div class="item-actions">
-                    <a href="edit-item.html?id=${item.id}">Edit</a>
-                    <a href="#" class="delete-btn" data-id="${item.id}">Delete</a>
+                    <a href="edit-item.html?id=${item.ProductID}">Edit</a>
+                    <a href="#" class="delete-btn" data-id="${item.ProductID}">Delete</a>
                 </div>
             `;
 

@@ -1,4 +1,4 @@
-import { getUsers, createUser } from "./api.js";
+import { createUser, loginUser } from "./api.js";
 
 // Login
 const loginForm = document.getElementById("loginForm");
@@ -10,15 +10,14 @@ if (loginForm) {
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
 
-// AI-assisted authentication logic used to validate credentials against stored MockAPI user records
-        const users = await getUsers();
-        const user = users.find(u => u.username === username && u.password === password);
-
-        if (user) {
+// AI-assisted authentication logic used to validate credentials against stored user records
+        const result = await loginUser({ username, password });
+        if (result.user) {
             sessionStorage.setItem("loggedInUser", username);
+            sessionStorage.setItem("loggedInUserId", result.user.UserID);
             window.location.href = "dashboard.html";
         } else {
-            alert("Invalid username or password");
+            alert(result.message || "Invalid username or password");
         }
     });
 }
