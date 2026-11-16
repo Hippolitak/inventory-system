@@ -1,5 +1,5 @@
-// MockAPI intergration 
-const API_BASE = "https://6ad4df9e48476c0785d94f71.mockapi.io";
+// SSMS intergration 
+const API_BASE = "http://localhost:3000/api";
 
 // User account operations 
 export const getUsers = async () => {
@@ -16,6 +16,28 @@ export const createUser = async (userData) => {
     return res.json();
 };
 
+// User login
+export const loginUser = async (userData) => {
+    const res = await fetch(`${API_BASE}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+    });
+
+    return res.json();
+};
+
+// Update user password
+export const updatePassword = async (userId, passwordData) => {
+    const res = await fetch(`${API_BASE}/users/${userId}/password`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(passwordData)
+    });
+
+    return res.json();
+};
+
 export const updateUser = async (id, userData) => {
     const res = await fetch(`${API_BASE}/users/${id}`, {
         method: "PUT",
@@ -27,11 +49,18 @@ export const updateUser = async (id, userData) => {
 };
 
 export const deleteUser = async (id) => {
-    await fetch(`${API_BASE}/users/${id}`, {
+    const res = await fetch(`${API_BASE}/users/${id}`, {
         method: "DELETE"
     });
-};
 
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || "Account deletion failed.");
+    }
+
+    return data;
+};
 
 // Product CRUD operations used throughout the inventory system 
 export const getProducts = async () => {

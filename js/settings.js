@@ -1,4 +1,4 @@
-import { getUsers, updateUser, deleteUser, getProducts, deleteProduct } from "./api.js";
+import { getUsers, updateUser, deleteUser, getProducts, deleteProduct, updatePassword } from "./api.js";
 
 const currentUsername =
     sessionStorage.getItem("loggedInUser");
@@ -10,7 +10,6 @@ const updateUsernameBtn =
     document.getElementById("updateUsernameBtn");
 
 updateUsernameBtn?.addEventListener("click", async () => {
-
     const newUsername =
         document.getElementById("newUsername").value.trim();
 
@@ -19,32 +18,30 @@ updateUsernameBtn?.addEventListener("click", async () => {
         return;
     }
 
-    const users = await getUsers();
+    const currentUserId =
+        Number(sessionStorage.getItem("loggedInUserId"));
 
-    const currentUser = users.find(
-        user => user.username === currentUsername
-    );
+    try {
+        const result = await updateUser(currentUserId, {
+            Username: newUsername
+        });
 
-    if (!currentUser) {
-        alert("Current user not found.");
-        return;
+        if (result.message !== "Username updated successfully.") {
+            alert(result.message || "Unable to update username.");
+            return;
+        }
+
+        sessionStorage.setItem("loggedInUser", newUsername);
+
+        document.getElementById("currentUsername").textContent =
+            newUsername;
+
+        alert("Username updated.");
+
+    } catch (error) {
+        console.error("Username update failed:", error);
+        alert("Unable to update your username.");
     }
-
-    await updateUser(currentUser.id, {
-        ...currentUser,
-        username: newUsername
-    });
-
-    // Updates the active user session
-    sessionStorage.setItem(
-        "loggedInUser",
-        newUsername
-    );
-
-    document.getElementById("currentUsername").textContent =
-        newUsername;
-
-    alert("Username updated successfully.");
 });
 
 // AI-assisted password management
@@ -54,28 +51,16 @@ const updatePasswordBtn =
 updatePasswordBtn?.addEventListener("click", async () => {
 
     const currentPassword =
-        document.getElementById("currentPassword").value.trim();
+        document.getElementById("currentPassword").value;
 
     const newPassword =
-        document.getElementById("newPassword").value.trim();
+        document.getElementById("newPassword").value;
 
     const confirmPassword =
-        document.getElementById("confirmPassword").value.trim();
+        document.getElementById("confirmPassword").value;
 
-    const users = await getUsers();
-
-    const currentUser = users.find(
-        user =>
-            user.username === sessionStorage.getItem("loggedInUser")
-    );
-
-    if (!currentUser) {
-        alert("User not found.");
-        return;
-    }
-
-    if (currentUser.password !== currentPassword) {
-        alert("Current password is incorrect.");
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        alert("Please complete all password fields.");
         return;
     }
 
@@ -84,29 +69,42 @@ updatePasswordBtn?.addEventListener("click", async () => {
         return;
     }
 
-    if (!newPassword) {
-        alert("Please enter a new password.");
+    if (newPassword.length < 6) {
+        alert("Your new password must be at least 6 characters.");
         return;
     }
-    // Updates the account password in MockAPI
-    await updateUser(currentUser.id, {
-        ...currentUser,
-        password: newPassword
-    });
 
-    alert("Password updated successfully.");
+    const userId = Number(sessionStorage.getItem("loggedInUserId"));
 
-    document.getElementById("currentPassword").value = "";
-    document.getElementById("newPassword").value = "";
-    document.getElementById("confirmPassword").value = "";
+    try {
+        const result = await updatePassword(userId, {
+            currentPassword,
+            newPassword
+        });
+
+        if (!result.message || result.message !== "Password updated successfully.") {
+            alert(result.message || "Unable to update password.");
+            return;
+        }
+
+        alert("Password updated successfully.");
+
+        document.getElementById("currentPassword").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+
+    } catch (error) {
+        console.error("Password update failed:", error);
+        alert("Unable to update password.");
+    }
 });
 
 const deleteAccountBtn =
     document.getElementById("deleteAccountBtn");
 
-    // Delete Account
+// Delete Account
 deleteAccountBtn?.addEventListener("click", async () => {
-    // Additional validation 
+
     const confirmDelete = prompt(
         "Type DELETE MY ACCOUNT to permanently remove your account and inventory."
     );
@@ -116,25 +114,25 @@ deleteAccountBtn?.addEventListener("click", async () => {
         return;
     }
 
-    const users = await getUsers();
+    const userId = Number(sessionStorage.getItem("loggedInUserId"));
 
-    const currentUser = users.find(
-        user =>
-            user.username ===
-            sessionStorage.getItem("loggedInUser")
-    );
-    
-
-    if (!currentUser) {
-        alert("User not found.");
+    if (!userId) {
+        alert("User account not found.");
         return;
     }
 
-    await deleteUser(currentUser.id);
+    try {
+        await deleteUser(userId);
 
-    sessionStorage.removeItem("loggedInUser");
+        sessionStorage.removeItem("loggedInUser");
+        sessionStorage.removeItem("loggedInUserId");
 
-    alert("Account deleted successfully.");
+        alert("Account and inventory deleted successfully.");
 
-    window.location.href = "login.html";
+        window.location.href = "login.html";
+
+    } catch (error) {
+        console.error("Account deletion failed:", error);
+        alert("Unable to delete account.");
+    }
 });

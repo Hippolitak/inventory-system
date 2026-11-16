@@ -6,124 +6,127 @@ const lowStockItems = document.getElementById("lowStockItems");
 const outOfStockItems = document.getElementById("outOfStockItems");
 const reportSearch = document.getElementById("reportSearch");
 
-// AI-assisted reporting workflow which retrieves inventory data
+// Load reports from SQL Server API
 const loadReports = async () => {
+    try {
+        const currentUserId = Number(sessionStorage.getItem("loggedInUserId"));
 
-    const currentUser =
-        sessionStorage.getItem("loggedInUser");
+        let products = (await getProducts()).filter(
+            product => Number(product.UserID) === currentUserId
+        );
 
-    // Generates reports only for intended user
-    let products = (await getProducts()).filter(
-        product => product.owner === currentUser
-    );
+        // Search inventory
+        if (reportSearch && reportSearch.value.trim() !== "") {
+            const searchTerm = reportSearch.value.toLowerCase();
 
-    // AI-assisted search feature which filters inventory records
-    if (reportSearch && reportSearch.value.trim() !== "") {
+            products = products.filter(item =>
+                String(item.Name).toLowerCase().includes(searchTerm) ||
+                String(item.Category).toLowerCase().includes(searchTerm) ||
+                String(item.Code).toLowerCase().includes(searchTerm)
+            );
+        }
 
-    const searchTerm = reportSearch.value.toLowerCase();
+        // Calculate report statistics
+        const totalProducts = products.length;
 
-    products = products.filter(item =>
-        item.name.toLowerCase().includes(searchTerm) ||
-        item.category.toLowerCase().includes(searchTerm) ||
-        String(item.code).toLowerCase().includes(searchTerm)
-    );
-}
+        const totalQuantity = products.reduce(
+            (sum, item) => sum + Number(item.Quantity), 0
+        );
 
-    const totalProducts = products.length;
-    // AI-assisted aggregation using reduce() to calculate the total quantity of inventory items
-    const totalQuantity = products.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-    );
+        const inventoryValue = products.reduce(
+            (sum, item) => sum + (Number(item.Quantity) * Number(item.Price)), 0
+        );
 
-    const inventoryValue = products.reduce(
-        (sum, item) => sum + (item.quantity * item.price),
-        0
-    );
+        const formattedInventoryValue = inventoryValue.toLocaleString("en-GB", {
+            style: "currency",
+            currency: "GBP"
+        });
 
-    const formattedInventoryValue = inventoryValue.toLocaleString("en-GB", {
-        style: "currency",
-        currency: "GBP"
-    });
+        const lowStock = products.filter(
+            item => Number(item.Quantity) > 0 && Number(item.Quantity) < 5
+        );
 
-    const lowStock = products.filter(
-        item => item.quantity > 0 && item.quantity < 5
-    );
+        const outOfStock = products.filter(
+            item => Number(item.Quantity) === 0
+        );
 
-    const outOfStock = products.filter(
-        item => item.quantity === 0
-    );
+        // Display report cards
+        reportCards.innerHTML = `
+            <div class="card">
+                <h3>Total Products</h3>
+                <p>${totalProducts}</p>
+            </div>
+            <div class="card">
+                <h3>Total Quantity</h3>
+                <p>${totalQuantity}</p>
+            </div>
+            <div class="card">
+                <h3>Inventory Value</h3>
+                <p>${formattedInventoryValue}</p>
+            </div>
+            <div class="card">
+                <h3>Low Stock</h3>
+                <p>${lowStock.length}</p>
+            </div>
+            <div class="card">
+                <h3>Out Of Stock</h3>
+                <p>${outOfStock.length}</p>
+            </div>
+        `;
 
-    const printReportBtn = document.getElementById("printReportBtn");
-    printReportBtn?.addEventListener("click", () => {
-        window.print();
-    });
-
-    reportCards.innerHTML = `
-        <div class="card">
-            <h3>Total Products</h3>
-            <p>${totalProducts}</p>
-        </div>
-
-        <div class="card">
-            <h3>Total Quantity</h3>
-            <p>${totalQuantity}</p>
-        </div>
-
-        <div class="card">
-            <h3>Inventory Value</h3>
-            <p>${formattedInventoryValue}</p>
-        </div>
-
-        <div class="card">
-            <h3>Low Stock</h3>
-            <p>${lowStock.length}</p>
-        </div>
-
-        <div class="card">
-            <h3>Out Of Stock</h3>
-            <p>${outOfStock.length}</p>
-        </div>
-    `;
-
-    inventoryTable.innerHTML = `
-        <table class="report-table">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                ${products.map(item => `
+        // Display inventory table
+        inventoryTable.innerHTML = `
+            <table class="report-table">
+                <thead>
                     <tr>
-                        <td>${item.name}</td>
-                        <td>${item.category}</td>
-                        <td>${item.quantity}</td>
-                        <td>£${Number(item.price).toFixed(2)}</td>
-                        <td>£${(item.quantity * item.price).toFixed(2)}</td>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Value</th>
                     </tr>
-                `).join("")}
-            </tbody>
-        </table>
-    `;
+                </thead>
+                <tbody>
+                    ${products.map(item => `
+                        <tr>
+                            <td>${item.Name}</td>
+                            <td>${item.Category}</td>
+                            <td>${item.Quantity}</td>
+                            <td>£${Number(item.Price).toFixed(2)}</td>
+                            <td>£${(Number(item.Quantity) * Number(item.Price)).toFixed(2)}</td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        `;
 
-    lowStockItems.innerHTML = lowStock.length
-        ? lowStock.map(item => `
-            <p>${item.name} (Qty: ${item.quantity})</p>
-        `).join("")
-        : "<p>No low stock items.</p>";
+        // Display low-stock items
+        lowStockItems.innerHTML = lowStock.length
+            ? lowStock.map(item => `
+                <p>${item.Name} (Qty: ${item.Quantity})</p>
+            `).join("")
+            : "<p>No low stock items.</p>";
 
-    outOfStockItems.innerHTML = outOfStock.length
-        ? outOfStock.map(item => `
-            <p>${item.name}</p>
-        `).join("")
-        : "<p>No out-of-stock items.</p>";
+        // Display out-of-stock items
+        outOfStockItems.innerHTML = outOfStock.length
+            ? outOfStock.map(item => `
+                <p>${item.Name}</p>
+            `).join("")
+            : "<p>No out-of-stock items.</p>";
+
+    } catch (error) {
+        console.error("Unable to load reports:", error);
+        alert("Unable to load report data.");
+    }
 };
 
+// Print report
+const printReportBtn = document.getElementById("printReportBtn");
+
+printReportBtn?.addEventListener("click", () => {
+    window.print();
+});
+
+// Load reports and update when searching
 loadReports();
 reportSearch?.addEventListener("input", loadReports);
