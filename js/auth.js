@@ -12,9 +12,9 @@ if (loginForm) {
 
 // AI-assisted authentication logic used to validate credentials against stored user records
         const result = await loginUser({ username, password });
-        if (result.user) {
-            sessionStorage.setItem("loggedInUser", username);
-            sessionStorage.setItem("loggedInUserId", result.user.UserID);
+        if (result.UserID) {
+            sessionStorage.setItem("loggedInUser", result.Username);
+            sessionStorage.setItem("loggedInUserId", result.UserID);
             window.location.href = "dashboard.html";
         } else {
             alert(result.message || "Invalid username or password");
@@ -39,9 +39,15 @@ if (registerForm) {
         }
 
         const newUser = { username, password };
-        await createUser(newUser);
+            try {
+                const result = await createUser(newUser);
 
-        alert("Account created successfully");
-        window.location.href = "login.html";
+                alert("Account created successfully!");
+                window.location.href = "login.html";
+
+            } catch (error) {
+                alert(error.message);
+                console.error("Registration error:", error);
+            }
     });
 }

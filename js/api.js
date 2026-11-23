@@ -13,7 +13,14 @@ export const createUser = async (userData) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData)
     });
-    return res.json();
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+    }
+
+    return data;
 };
 
 // User login
@@ -74,7 +81,14 @@ export const createProduct = async (productData) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData)
     });
-    return res.json();
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || "Unable to add product");
+    }
+
+    return data;
 };
 
 export const updateProduct = async (id, productData) => {
